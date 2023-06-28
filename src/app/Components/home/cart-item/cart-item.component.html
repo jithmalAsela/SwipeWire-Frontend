@@ -1,0 +1,75 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <a routerLink="/home" class="btn btn-primary"><i class="fa fa-angle-left"></i> Continue Shopping</a><br>
+  <span class="d-block p-2 bg-dark text-white">
+      <p style="padding-top: 10px"> To change Quantity, Edit Quantity and Click on Update button</p>
+    </span>
+
+    <div class="media-body">
+      <span class="d-block p-2 bg-light">
+      <h6 class="mb-1 text-secondary">Contact Number: {{model.phonenumber}}<br> Billing Address</h6>
+      <p class="text-black">{{model.address}}<br>
+        {{model.city}}<br>
+        {{model.state}}<br>
+        {{model.country}}<br>
+        {{model.zipcode}}<br>
+      </p>
+      <p class="mb-0 text-black font-weight-bold">
+        <a class="text-primary mr-3" routerLink="/home/address">
+          <i class="icofont-ui-edit"></i> EDIT</a> 
+      </p>
+    </span>
+  </div>
+  <table id="cart" class="table table-striped table table-bordered table table-hover success">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tr *ngFor="let cart of cartlist">
+      <td>
+        {{cart.productname}}
+      </td>
+      <td>{{cart.price | currency:'USD'}}</td>
+      <td>
+
+        <div class="row">
+          <div class="col-6">
+            <input type="number" value="{{cart.quantity}}" #quant>
+            <input type="hidden" value="{{cart.bufcartId}}" #prod>
+          </div>
+          <div class="col-6">
+            <button class="btn btn-info btn-sm" (click)="updateCart(prod,quant)">Update</button>
+          </div>
+        </div>
+      </td>
+      <td>
+        {{cart.quantity*cart.price | currency:'USD'}}
+
+      </td>
+      <td>
+        <button class="btn btn-info btn-sm" (click)="deleteItem(prod)">Delete</button>
+      </td>
+    </tr>
+  </table>
+
+  <div class="row">
+    <div class="col-9"><strong> Sum : {{totalSum | currency:'USD'}}</strong></div>
+    <div class="offset-1 col-2" *ngIf="isCheckout"><button type="button" class="btn btn-primary align-right" (click)="placeOrder()">Checkout <i
+          class="fa fa-angle-right"></i></button></div>
+          <div class="offset-1 col-2" *ngIf="!isCheckout"><button type="button" class="btn btn-outline-success my-2 my-sm-0">
+            <a class="nav-link" routerLink="/home/address"><i class="fa fa-fw fa-home"></i>Insert Address</a></button></div>
+  </div>
+
+</div>
+<loader *ngIf="loaderStatus">Loading...</loader>
+<div class="alert">
+  <alert *ngFor="let alert of alerts; let i = index" [type]="alert.type" closeable="true"
+             [dismissOnTimeout]="alert.dismissOnTimeout" (close)="closeAlert(i)">
+    {{ alert?.message }}
+  </alert>
+</div>

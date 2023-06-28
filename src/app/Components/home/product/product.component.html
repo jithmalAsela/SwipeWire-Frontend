@@ -1,0 +1,15 @@
+<div class="card" style="margin-bottom: 15px;border-style: groove;border-radius: 10px;background-color: rgb(255, 255, 255);">
+        <div class="card-body">
+                <div class="card-header">
+                        <h5 class="card-title">{{product.productname}}</h5>
+                </div>
+                
+                <img src="data:image/png;base64,{{product.productimage}}" class="card-img-bottom img-responsive rounded-top border" height="150px"
+                        width="200px" alt="Image">
+                <p> <small>{{product.description}}</small></p>
+                <div class="card-footer">
+                <button class="btn btn-outline-primary btn-sm" style="margin-right: 5px;" (click)="addToCart()">Add to cart</button>
+                <button class="btn btn-outline-info btn-sm" style="margin-left: auto;">More Info</button>
+        </div>
+        </div>
+</div>

@@ -1,0 +1,36 @@
+<app-navigation></app-navigation>
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"> Sign In </h2>
+
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div *ngIf="error">Content to render when condition is true.</div>
+            <div class="form-group">
+                <input class="fadeIn second" formControlName="email" placeholder="xyz@gmail.com" style="width:50%"
+                placeholder="login">
+                
+            </div>
+            <div class="form-group">
+                <input type="password" class="fadeIn second" formControlName="password" placeholder="Password"
+                    style="width:50%" placeholder="password">
+            </div>
+            <input type="submit" class="btn btn-secondary align-right" value="Login">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+    <loader *ngIf="loaderStatus">Loading...</loader>
+</div>
+<div class="alert">
+    <alert *ngFor="let alert of alerts; let i = index" [type]="alert.type" closeable="true"
+               [dismissOnTimeout]="alert.dismissOnTimeout" (close)="closeAlert(i)">
+      {{ alert?.message }}
+    </alert>
+</div>
